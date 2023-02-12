@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 //create post
 
@@ -85,6 +86,7 @@ router.get("/newsfeed/all", async (req, res) => {
     );
     res.json(userPosts.concat(...friendPosts));
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
