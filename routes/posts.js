@@ -91,4 +91,30 @@ router.get("/newsfeed/all", async (req, res) => {
   }
 });
 
+//get timeline posts
+router.get("/timeline/:username", async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const posts = await Post.find({ userId: user._id });
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//delete post
+
+router.get("/deleteEmptyPosts/all", async (req, res) => {
+  try {
+    const posts = await Post.find({ description: "", img: { $exists: false } });
+    const deleted = await Promise.all(
+      posts.map((post) => {
+        return post.deleteOne();
+      })
+    );
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 module.exports = router;
