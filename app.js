@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8000;
+const port = process.env.PORT||8000;
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -16,8 +16,8 @@ const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PAS
 mongoose
   .connect(uri)
   .then(() => {
-    app.listen(8000, () => `app running on ${port} mongo connected`);
-    console.log("mongo connected");
+    app.listen(port, () => `app running on ${port} mongo connected`);
+    console.log("mongo connected on port ",port);
   })
   .catch((e) => console.log(e));
 
