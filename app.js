@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 const port = process.env.PORT || 8000;
 const host = "0.0.0.0";
 const mongoose = require("mongoose");
@@ -9,7 +10,7 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-
+app.use(cors());
 dotenv.config();
 
 const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.lzwpo.mongodb.net/?retryWrites=true&w=majority`;
