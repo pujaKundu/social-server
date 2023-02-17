@@ -70,9 +70,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//get newsfeed posts
+//get timeline posts
 
-router.get("/newsfeed/:userId", async (req, res) => {
+router.get("/timeline/:userId", async (req, res) => {
   try {
     const currentUser = await User.findById(req.params.userId);
     const userPosts = await Post.find({ userId: currentUser._id });
@@ -98,5 +98,6 @@ router.get("/profile/:username", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 module.exports = router;
