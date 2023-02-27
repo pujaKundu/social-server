@@ -31,11 +31,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 app.use("/images",express.static(path.join(__dirname,'public/images')))
-app.use(
-  cors({
-    origin: "http://127.0.0.1:5173",
-  })
-);
+
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
     cb(null,'public/images')
