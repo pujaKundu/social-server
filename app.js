@@ -8,11 +8,11 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require('multer')
-const path=require('path')
+const path = require('path')
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-app.use(cors());
+
 dotenv.config();
 
 const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.lzwpo.mongodb.net/?retryWrites=true&w=majority`;
@@ -26,12 +26,12 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-
-  app.use("/images", express.static(path.join(__dirname, "public/images")));
 //middleware
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors());
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -45,7 +45,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
-    return res.status(200).json("File uploded successfully");
+    res.set('Access-Control-Allow-Origin', '*');
+    return res.status(200).json("File uploaded successfully");
   } catch (error) {
     console.error(error);
   }
