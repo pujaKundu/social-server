@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require('cors')
 const port = process.env.PORT || 8000;
-const host = "0.0.0.0";
+
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -20,8 +20,8 @@ const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PAS
 mongoose
   .connect(uri)
   .then(() => {
-    app.listen(port, host, () => {
-      console.log(`Server running at http://${host}:${port}/`);
+    app.listen(port, () => {
+     
     });
   })
   .catch((e) => console.log(e));
