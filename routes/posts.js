@@ -70,19 +70,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// DELETE a post by ID
-router.delete('/:id', async (req, res) => {
-  try {
-    const deletedPost = await Post.findByIdAndDelete(req.params.id);
-    if (!deletedPost) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-    res.json(deletedPost);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
 
 //get timeline posts
 
